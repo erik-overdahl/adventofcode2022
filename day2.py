@@ -38,14 +38,9 @@ def score_part2(line: str) -> int:
         choice = (theirs + 1) % 3
     return result + choice + 1
 
-# lookups
-games = ["A X", "A Y", "A Z", "B X", "B Y", "B Z", "C X", "C Y", "C Z"]
-p1_scores = {g:score_part1(g) for g in games}
-p2_scores = {g:score_part2(g) for g in games}
 
 with open("./day2.input") as f:
     lines = f.readlines()
-    part1 = sum([p1_scores[line.rstrip()] for line in lines])
-    part2 = sum([p2_scores[line.rstrip()] for line in lines])
+    part1 = sum(map(score_part1, lines))
+    part2 = sum(map(score_part2, lines))
     print(f"Part 1: {part1}, Part 2: {part2}")
-
