@@ -16,12 +16,15 @@ with open("./day5.input") as f:
 # move 1 from 1 to 2
 # """
 
-cargo = ["" for _ in range(9)]
+cargo = []
 moves = []
 
 stacks, instructions = blob.split("\n\n")
 stack_lines = stacks.split("\n")
 for line in stack_lines[:-1]:
+    num_line_crates = len(line)//4
+    if len(cargo) <= num_line_crates:
+        cargo += [""]*(num_line_crates - len(cargo) + 1)
     for i in range(0, len(line), 4):
         crate = line[i:i+4]
         if crate[0] == "[":
