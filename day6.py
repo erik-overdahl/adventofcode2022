@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 
 def findMsgStart(data: str, markerLen: int) -> int:
-    window = set()
-    window_start, window_end = 0, 0
-    while window_end < len(data):
-        if len(window) == markerLen:
-            return window_end
+    char_pos = {}
+    window_start = 0
+    for window_end in range(len(data)):
         right = data[window_end]
-        while right in window:
-            left = data[window_start]
-            window.remove(left)
-            window_start += 1
-        window.add(right)
+        print(" "*window_start, data[window_start:window_end+1])
+        if right in char_pos and char_pos[right] >= window_start:
+            window_start = char_pos[right] + 1
+        char_pos[right] = window_end
         window_end += 1
+        window_size = window_end - window_start
+        if window_size == markerLen:
+            return window_end
     return -1
 
 
