@@ -5,7 +5,6 @@ def findMsgStart(data: str, markerLen: int) -> int:
     window_start = 0
     for window_end in range(len(data)):
         right = data[window_end]
-        print(" "*window_start, data[window_start:window_end+1])
         if right in char_pos and char_pos[right] >= window_start:
             window_start = char_pos[right] + 1
         char_pos[right] = window_end
