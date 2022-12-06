@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
 
 def findMsgStart(data: str, markerLen: int) -> int:
-    for i in range(markerLen,len(data)):
-        if len(set(data[i-markerLen:i])) == markerLen:
-            return i
+    window = set()
+    window_start, window_end = 0, 0
+    while window_end < len(data):
+        if len(window) == markerLen:
+            return window_end
+        right = data[window_end]
+        while right in window:
+            left = data[window_start]
+            window.remove(left)
+            window_start += 1
+        window.add(right)
+        window_end += 1
     return -1
+
 
 def check():
     test_cases = [
