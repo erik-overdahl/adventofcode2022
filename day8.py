@@ -63,6 +63,29 @@ def count_visible(trees: list[str]) -> int:
     return 2*line_len + 2*(col_len-2) + sum(visible)
 
 
+def scenic_scores(heights: list[list[int]]) -> list[int]:
+    row_len = len(heights[0])
+    scores = [1]*(len(heights)*row_len)
+    for y, row in enumerate(heights):
+        for x, height in enumerate(row):
+            sightlines = [
+                row[:x][::-1],
+                row[x+1:],
+                [r[x] for r in heights[:y][::-1]],
+                [r[x] for r in heights[y+1:]],
+            ]
+            # print(x, height, sightlines)
+            for line in sightlines:
+                n = 0
+                for tree in line:
+                    n += 1
+                    if tree >= height:
+                        break
+                print(n)
+                scores[(y*row_len) + x] *= n
+    return scores
+
+
 input = []
 for line in open("./day8.input"):
     input.append(line.rstrip("\n"))
@@ -75,4 +98,6 @@ for line in open("./day8.input"):
 #     "35390",
 # ]
 
-print(f"Part 1: {count_visible(input)}")
+part1 = count_visible(input)
+part2 = max(scenic_scores([[int(c) for c in row] for row in input]))
+print(f"Part 1: {part1}, Part 2: {part2}")
