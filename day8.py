@@ -81,7 +81,6 @@ def scenic_scores(heights: list[list[int]]) -> list[int]:
                     n += 1
                     if tree >= height:
                         break
-                print(n)
                 scores[(y*row_len) + x] *= n
     return scores
 
