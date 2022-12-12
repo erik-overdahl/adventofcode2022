@@ -47,7 +47,6 @@ def parse_graph(input: str) -> Graph:
 
 def BFS(graph: Graph, traversable: Callable[[Node,Node],bool], exit_condition: Callable[[int,int],bool]) -> tuple[int, list[int]]:
     discovered = [False for _ in graph.nodes]
-    # processed = [False for _ in graph.nodes]
     parents = [-1 for _ in graph.nodes]
 
     queue = deque()
@@ -56,7 +55,6 @@ def BFS(graph: Graph, traversable: Callable[[Node,Node],bool], exit_condition: C
 
     while len(queue) > 0:
         index = queue.popleft()
-        # processed[index] = True
         node = graph.nodes[index]
         for n_idx in node.neighbors:
             if not discovered[n_idx]:
@@ -67,7 +65,6 @@ def BFS(graph: Graph, traversable: Callable[[Node,Node],bool], exit_condition: C
                     queue.append(n_idx)
                     if exit_condition(n_idx, neighbor.value):
                         return n_idx, parents
-                    # print_path(parents)
     return 0, parents
 
 
